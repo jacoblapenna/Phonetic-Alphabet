@@ -1,4 +1,7 @@
 
+from random import choice
+from Alphabet import Alphabet
+
 class Words(dict):
     """
     dictionary object with each letter in the alphabet containing a list
@@ -9,12 +12,15 @@ class Words(dict):
 
     def __init__(self):
         # create words dictionary object
-        self.__words = self.generate_word_dict()
-        super().__init__(self.__words)
+        self._words = self.generate_word_dict()
+        self._alphabet = Alphabet()
+        super().__init__(self._words)
 
     def generate_word_dict(self):
+
         # create empty dict object to build on
         word_dict = {}
+
         # open text file with english words (downloaded from nltk)
         with open("static/en", 'r') as word_file:
             for w in word_file:
@@ -30,5 +36,18 @@ class Words(dict):
                     word_dict[c][0] += 1
                     # and insert new word into list under character
                     word_dict[c][1].append(word)
+
         # return the dict object when done
         return word_dict
+
+    def get_word_choices(self, letter):
+
+        answers = []
+        correct_answer = self._alphabet[letter]
+
+        while len(answers) < 3:
+            word = choice(self._words[letter][1])
+            if word != correct_answer and word not in answers:
+                answers.append(word)
+
+        return answers
