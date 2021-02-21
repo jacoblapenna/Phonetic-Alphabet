@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <!-- the title the browser sees -->
+  <title>Phonetic alphabet game.</title>
+
+  <!-- tell browser where to find page styling -->
+  <link rel="stylesheet"
+    type="text/css"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- tell browser where to find favicon
+  (the litel image in the browser tab) -->
+  <link rel="icon"
+		href="{{ url_for('static', filename='im/favicon.ico') }}">
+
+  <!-- tell browser where to find js support code (must be stored locally
+  if on  LAN without internet, otherwise provide href to js support code
+  on internet)-->
+  <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}">
+  </script>
+
+  <!-- same as above but for js socket protocol -->
+  <script src="{{ url_for('static', filename='js/socket.io.js') }}">
+  </script>
+
+</head>
+<body>
+
+  This is the main page.
+
+  <script>
+  // javascript (js) starts here
+
+    // declare needed global variables
+    //var socket =  io.connect(location.origin);
+
+
+  </script>
+
+</body>
+</html>

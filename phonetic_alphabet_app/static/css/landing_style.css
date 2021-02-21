@@ -1,0 +1,93 @@
+
+:root {
+  --dark_color: #323232;
+  --mid_color: #68646E;
+  --font_color: #C3E0E5;
+  --button_color: #3DDC9D;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--dark_color);
+}
+
+
+#welcome_container {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  height: 50%;
+  width: 80%;
+  background-color: var(--mid_color);
+  border-radius: 2em;
+}
+
+#welcome_message {
+  font-size: 2em;
+  position: absolute;
+  top: 25%;
+  left: 15%;
+  height: 2em;
+  width: 70%;
+  color: var(--font_color);
+  background-color: var(--mid_color);
+}
+
+#alphabetical_selection {
+  text-align: center;
+  position: absolute;
+  top: 75%;
+  width: 50%;
+  left: 0%;
+}
+
+#random_selection {
+  text-align: center;
+  position: absolute;
+  top: 75%;
+  width: 50%;
+  left: 50%;
+}
+
+#alphabetical {
+  position: absolute;
+  right: 7%;
+}
+
+#random {
+  position: absolute;
+  left: 7%;
+}
+
+button {
+  background-color: var(--button_color);
+  color: var(--mid_color);
+  font-size: 1.5em;
+  font-weight: bold;
+  border-style: ridge;
+  border-radius: 0.5em;
+  width: 20em;
+  max-width: 46%;
+  height: 3em;
+}
+
+#ad_notice {
+  text-align: center;
+  font-size: 1.25em;
+  position: absolute;
+  top: 65%;
+  height: 5%;
+  width: 100%;
+  color: var(--mid_color);
+}
+
+#ad_container {
+  position: absolute;
+  top: 70%;
+  left: 10%;
+  height: 20%;
+  width: 80%;
+  background-color: var(--mid_color);
+  border-radius: 2em;
+}

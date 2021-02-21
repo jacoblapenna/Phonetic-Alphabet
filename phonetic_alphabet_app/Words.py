@@ -22,7 +22,7 @@ class Words(dict):
         word_dict = {}
 
         # open text file with english words (downloaded from nltk)
-        with open("static/en", 'r') as word_file:
+        with open("static/dta/en", 'r') as word_file:
             for w in word_file:
                 # strip whitespace, \n character, and capitalize first letter
                 word = w.strip().title()
