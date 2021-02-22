@@ -32,10 +32,10 @@
         Welcome to this phonetic alphabet study guide! Please select whether you want the quiz to be presented in random or alphabetical order.
       </div>
       <div id="alphabetical_selection">
-        <button id="alphabetical" onclick="start_quiz()">Alphabetical Order</button>
+        <button id="alphabetical" onclick="alpha_order()">Alphabetical Order</button>
       </div>
       <div id="random_selection">
-        <button id="random" onclick="start_quiz()">Random Order</button>
+        <button id="random" onclick="rand_order()">Random Order</button>
       </div>
     </div>
 
@@ -51,8 +51,17 @@
     // declared needed global variables
     var socket =  io.connect(location.origin);
 
-    function start_quiz() {
-      console.log("Button was clicked!")
+    function alpha_order() {
+      start_quiz("alphabetical");
+    }
+
+    function rand_order() {
+      start_quiz("random");
+    }
+
+    function start_quiz(quiz_order) {
+      console.log(`The ${quiz_order} button was clicked!`);
+      socket.emit("start_quiz", quiz_order=quiz_order);
     }
 
   </script>
