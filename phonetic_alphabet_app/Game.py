@@ -1,6 +1,7 @@
 
 from random import choice, shuffle
 
+from phonetic_alphabet_app import Alphabet, Words
 from Alphabet import Alphabet
 from Words import Words
 
@@ -25,6 +26,10 @@ class Game:
         else:
             self._letter = self._letters[self._letters.index(self._letter) + 1]
 
+    def get_letter(self):
+
+        return self._letter
+
     def get_choices(self):
 
         # get multple choices
@@ -36,6 +41,11 @@ class Game:
         # return choices
         return choices
 
-    def check_answer(self):
+    def check_answer(self, answer):
 
-        pass
+        correct_answer = self._alphabet[self._letter]
+
+        if answer == correct_answer:
+            return True
+        else:
+            return False

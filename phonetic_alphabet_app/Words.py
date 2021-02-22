@@ -1,5 +1,7 @@
 
 from random import choice
+
+from phonetic_alphabet_app import Alphabet
 from Alphabet import Alphabet
 
 class Words(dict):
