@@ -1,18 +1,27 @@
 
 from random import choice, shuffle
 
-from phonetic_alphabet_app import Alphabet, Words
-from Alphabet import Alphabet
-from Words import Words
+if __name__ == "Game":
+    from Alphabet import Alphabet
+    from Words import Words
+else:
+    from .Alphabet import Alphabet
+    from .Words import Words
 
 class Game:
 
-    def __init__(self, random_bool=False):
+    def __init__(self, random_bool=False, alphabet=None, words=None):
 
         self._random_bool = random_bool
-        self._alphabet = Alphabet()
+        if alphabet:
+            self._alphabet = alphabet
+        else:
+            self._alphabet = Alphabet()
         self._letters = list(self._alphabet.keys())
-        self._words = Words()
+        if words:
+            self._words = words()
+        else:
+            self._words = Words()
 
         if self._random_bool:
             self._letter = choice(self._letters)

@@ -1,8 +1,8 @@
 from flask import render_template, url_for, redirect, abort
 from flask_socketio import SocketIO
 
-from phonetic_alphabet_app import app, Game
-from Game import Game
+from phonetic_alphabet_app import app
+from phonetic_alphabet_app.Game import Game
 
 socket = SocketIO(app)
 

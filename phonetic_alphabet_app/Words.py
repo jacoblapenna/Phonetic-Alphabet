@@ -1,8 +1,10 @@
 
 from random import choice
 
-from phonetic_alphabet_app import Alphabet
-from Alphabet import Alphabet
+if __name__ == "Words":
+    from Alphabet import Alphabet
+else:
+    from .Alphabet import Alphabet
 
 class Words(dict):
     """

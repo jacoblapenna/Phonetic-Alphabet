@@ -1,9 +1,7 @@
+
 from flask import Flask
 from flask_socketio import SocketIO
 
-app = Flask(__name__)
+app = Flask(__name__.split('.')[0])
 
-import phonetic_alphabet_app.views
-import phonetic_alphabet_app.Game
-import phonetic_alphabet_app.Alphabet
-import phonetic_alphabet_app.Words
+from phonetic_alphabet_app import views
