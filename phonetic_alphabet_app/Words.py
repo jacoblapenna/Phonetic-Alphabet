@@ -1,7 +1,8 @@
-
 from random import choice
 
-if __name__ == "Words":
+import os
+
+if __name__ == __file__.split('/')[-1].split('.')[0] or __name__ == "__main__":
     from Alphabet import Alphabet
 else:
     from .Alphabet import Alphabet
@@ -25,8 +26,10 @@ class Words(dict):
         # create empty dict object to build on
         word_dict = {}
 
+        print(os.path.dirname(os.path.abspath(__file__)))
+
         # open text file with english words (downloaded from nltk)
-        with open("static/dta/en", 'r') as word_file:
+        with open("phonetic_alphabet_app/static/dta/en", 'r') as word_file:
             for w in word_file:
                 # strip whitespace, \n character, and capitalize first letter
                 word = w.strip().title()

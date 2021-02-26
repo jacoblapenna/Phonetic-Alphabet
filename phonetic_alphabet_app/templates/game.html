@@ -25,17 +25,17 @@
   </script>
 
 </head>
-<body>
+<body onload="get_present_question()">
 
     <div id="content_container">
       <div id="question">
         <b id=letter></b> is for...
       </div>
       <div id=choices>
-        <button id="c1" onclick="check_selection()"></button>
-        <button id="c2" onclick="check_selection()"></button>
-        <button id="c3" onclick="check_selection()"></button>
-        <button id="c4" onclick="check_selection()"></button>
+        <button id="c1" onclick="check_selection(this.id)"></button>
+        <button id="c2" onclick="check_selection(this.id)"></button>
+        <button id="c3" onclick="check_selection(this.id)"></button>
+        <button id="c4" onclick="check_selection(this.id)"></button>
       </div>
     </div>
 
@@ -50,27 +50,39 @@
 
     // declared needed global variables
     var socket =  io.connect(location.origin);
+    var selection_id
+    var html_elements = ["letter", "c1", "c2", "c3", "c4"]
+    var button_color = getComputedStyle(document.documentElement).getPropertyValue('--button_color');
+    var incorrect_color = getComputedStyle(document.documentElement).getPropertyValue('--incorrect_color');
 
     function display_question(json) {
 
       var letter = json.letter;
       var choices = json.choices;
 
-      document.getElementById("letter").innerHTML(letter)
-      document.getElementById("c1").innerHTML(choices[0])
-      document.getElementById("c2").innerHTML(choices[1])
-      document.getElementById("c3").innerHTML(choices[2])
-      document.getElementById("c4").innerHTML(choices[3])
+      for (i = 0; i < html_elements.length; i++) {
+        if (i == 0) {
+          document.getElementById(html_elements[i]).innerHTML = letter;
+        }
+        else {
+          document.getElementById(html_elements[i]).innerHTML = choices[i - 1];
+          document.getElementById(html_elements[i]).style.backgroundColor = button_color;
+        }
+      }
+    }
+
+    function get_present_question() {
+      socket.emit("get_present_question")
     }
 
     function get_next_question() {
       socket.emit("get_next_question");
     }
 
-    function check_selection() {
-      // pass id of clicked button to this function
-      // get buttons inner text
-      // check this selection
+    function check_selection(id) {
+      selection_id = id;
+      selection = document.getElementById(id).innerHTML;
+      socket.emit("check_selection", selection=selection);
     }
 
     socket.on("next_question", function (data) {
@@ -79,11 +91,12 @@
 
     socket.on("correct", function () {
       // tell user they are correct
-      get_next_question()
+      get_next_question();
     });
 
     socket.on("incorrect", function () {
       // turn button that was selected to red
+      document.getElementById(selection_id).style.backgroundColor = incorrect_color;
     });
 
   </script>

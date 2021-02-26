@@ -20,13 +20,21 @@ def serve_game(order):
         return render_template("game.html")
     if order == "random":
         game = Game(random_bool=True)
-        return render_template("game.html", letter=letter)
+        return render_template("game.html")
     else:
         return abort(404)
 
 @socket.on("start_quiz")
 def order_selected(quiz_order):
     socket.emit("redirect", {"url" : url_for("serve_game", order=quiz_order)})
+
+@socket.on("get_present_question")
+def server_present_question():
+
+    letter = game.get_letter()
+    choices = game.get_choices()
+
+    socket.emit("next_question", {"letter" : letter, "choices" : choices})
 
 @socket.on("get_next_question")
 def get_next_question():

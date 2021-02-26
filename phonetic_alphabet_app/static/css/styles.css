@@ -4,6 +4,7 @@
   --mid_color: #68646E;
   --font_color: #C3E0E5;
   --button_color: #3DDC9D;
+  --incorrect_color: #FF5050;
 }
 
 html, body {

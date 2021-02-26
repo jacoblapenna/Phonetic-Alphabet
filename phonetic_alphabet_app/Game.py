@@ -1,7 +1,6 @@
-
 from random import choice, shuffle
 
-if __name__ == "Game":
+if __name__ == __file__.split('/')[-1].split('.')[0] or __name__ == "__main__":
     from Alphabet import Alphabet
     from Words import Words
 else:
