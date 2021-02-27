@@ -32,7 +32,10 @@ class Game:
         if self._random_bool:
             self._letter = choice(self._letters)
         else:
-            self._letter = self._letters[self._letters.index(self._letter) + 1]
+            try:
+                self._letter = self._letters[self._letters.index(self._letter) + 1]
+            except IndexError:
+                self._letter = self._letters[0]
 
     def get_letter(self):
 
