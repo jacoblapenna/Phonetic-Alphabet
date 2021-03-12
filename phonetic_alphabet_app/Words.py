@@ -1,7 +1,5 @@
 from random import choice
 
-import os
-
 if __name__ == __file__.split('/')[-1].split('.')[0] or __name__ == "__main__":
     from Alphabet import Alphabet
 else:
@@ -25,8 +23,6 @@ class Words(dict):
 
         # create empty dict object to build on
         word_dict = {}
-
-        print(os.path.dirname(os.path.abspath(__file__)))
 
         # open text file with english words (downloaded from nltk)
         with open("phonetic_alphabet_app/static/dta/en", 'r') as word_file:
