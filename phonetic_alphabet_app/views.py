@@ -52,5 +52,9 @@ def check_selection(selection):
 
     if correct:
         socket.emit("correct")
+        """
+        This and load game should just deliver the next question.
+        Does the letter exist for all clients (how does each client get it's own game state)
+        """
     else:
         socket.emit("incorrect")

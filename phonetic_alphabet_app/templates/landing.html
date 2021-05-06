@@ -2,25 +2,18 @@
 <html>
 <head>
 
-  <!-- title browser sees -->
   <title>Phonetic Alphabet</title>
 
-  <!-- tell browser where styles are -->
   <link rel="stylesheet"
     type="text/css"
     href="{{ url_for('static', filename='css/styles.css') }}">
 
-  <!-- tell browser where to find the favicon (the little image on the
-  browser tab is called a favicon, feel free to change to something cool) -->
   <link rel="icon"
 		href="{{ url_for('static', filename='im/favicon.ico') }}">
 
-  <!-- tell browser where to find js support code (this must be stored
-  locally to if chatting on a LAN without iternet connectivity) -->
   <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}">
   </script>
 
-  <!-- same as above but this is code for js socket protocol -->
   <script src="{{ url_for('static', filename='js/socket.io.js') }}">
   </script>
 
