@@ -18,7 +18,9 @@
   </script>
 
   <!-- Google ad sense connection -->
+  <!--
   <script data-ad-client="ca-pub-9437688321417589" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  -->
 
 </head>
 <body>
@@ -52,20 +54,12 @@
     var socket =  io.connect(location.origin);
 
     function alpha_order() {
-      start_quiz("alphabetical");
+      window.location = "/quiz/alphabetical";
     }
 
     function rand_order() {
-      start_quiz("random");
+      window.location = "/quiz/random";
     }
-
-    function start_quiz(quiz_order) {
-      socket.emit("start_quiz", quiz_order=quiz_order);
-    }
-
-    socket.on("redirect", function (data) {
-      window.location = data.url;
-    });
 
   </script>
 

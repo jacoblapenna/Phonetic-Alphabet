@@ -9,42 +9,33 @@ else:
 
 class Game:
 
-    def __init__(self, random_bool=False, alphabet=None, words=None):
+    def __init__(self):
 
-        self._random_bool = random_bool
-        if alphabet:
-            self._alphabet = alphabet
-        else:
-            self._alphabet = Alphabet()
+        self._alphabet = Alphabet()
         self._letters = list(self._alphabet.keys())
-        if words:
-            self._words = words()
+        self._words = Words()
+
+    def get_next_question(self, order, current_letter):
+
+        if order == "random":
+            letter = choice(self._letters)
+        elif order == "alphabetical":
+            if current_letter and current_letter in self._letters:
+                try:
+                    letter = self._letters[self._letters.index(current_letter) + 1]
+                except IndexError:
+                    letter = self._letters[0]
+            else:
+                letter = self._letters[0]
         else:
-            self._words = Words()
+            return "bad_request"
 
-        if self._random_bool:
-            self._letter = choice(self._letters)
-        else:
-            self._letter = self._letters[0]
+        return {"letter" : letter, "choices" : self.get_choices(letter)}
 
-    def get_next_letter(self):
-
-        if self._random_bool:
-            self._letter = choice(self._letters)
-        else:
-            try:
-                self._letter = self._letters[self._letters.index(self._letter) + 1]
-            except IndexError:
-                self._letter = self._letters[0]
-
-    def get_letter(self):
-
-        return self._letter
-
-    def get_choices(self):
+    def get_choices(self, letter):
 
         # get multple choices
-        choices = self._words.get_word_choices(self._letter) + [self._alphabet[self._letter]]
+        choices = self._words.get_word_choices(letter) + [self._alphabet[letter]]
 
         # randomize order of choices
         shuffle(choices)
@@ -52,9 +43,9 @@ class Game:
         # return choices
         return choices
 
-    def check_answer(self, answer):
+    def check_answer(self, answer, letter):
 
-        correct_answer = self._alphabet[self._letter]
+        correct_answer = self._alphabet[letter]
 
         if answer == correct_answer:
             return True

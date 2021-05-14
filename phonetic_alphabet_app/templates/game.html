@@ -18,10 +18,12 @@
   </script>
 
   <!-- Google ad sense connection -->
+  <!--
   <script data-ad-client="ca-pub-9437688321417589" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  -->
 
 </head>
-<body onload="get_present_question()">
+<body onload="get_next_question()">
 
     <div id="content_container">
       <div id="question">
@@ -54,6 +56,9 @@
     var html_elements = ["letter", "c1", "c2", "c3", "c4"]
     var button_color = getComputedStyle(document.documentElement).getPropertyValue('--button_color');
     var incorrect_color = getComputedStyle(document.documentElement).getPropertyValue('--incorrect_color');
+    var current_letter;
+    var order = window.location.pathname.split('/');
+    order = order[order.length - 1]
 
     function display_question(json) {
 
@@ -71,21 +76,19 @@
       }
     }
 
-    function get_present_question() {
-      socket.emit("get_present_question");
-    }
-
     function get_next_question() {
-      socket.emit("get_next_question");
+      console.log(order, current_letter)
+      socket.emit("get_next_question", order=order, current_letter=current_letter);
     }
 
     function check_selection(id) {
       selection_id = id;
       selection = document.getElementById(id).innerHTML;
-      socket.emit("check_selection", selection=selection);
+      socket.emit("check_selection", selection=selection, order=order, current_letter=current_letter);
     }
 
     socket.on("next_question", function (data) {
+      current_letter = data.letter;
       display_question(data);
     });
 

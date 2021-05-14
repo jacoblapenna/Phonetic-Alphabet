@@ -1,10 +1,12 @@
-from flask import render_template, url_for, redirect, abort
+from flask import render_template, url_for, redirect, abort, request
 from flask_socketio import SocketIO
 
 from phonetic_alphabet_app import app
 from phonetic_alphabet_app.Game import Game
 
 socket = SocketIO(app)
+
+game = Game()
 
 @app.route('/')
 def landing():
@@ -13,48 +15,24 @@ def landing():
 @app.route("/quiz/<order>")
 def serve_game(order):
 
-    global game
+    game_state = {"order" : order, "current_letter" : None}
 
-    if order == "alphabetical":
-        game = Game(random_bool=False)
-        return render_template("game.html")
-    if order == "random":
-        game = Game(random_bool=True)
+    if order == "alphabetical" or order == "random":
         return render_template("game.html")
     else:
         return abort(404)
 
-@socket.on("start_quiz")
-def order_selected(quiz_order):
-    socket.emit("redirect", {"url" : url_for("serve_game", order=quiz_order)})
-
-@socket.on("get_present_question")
-def server_present_question():
-
-    letter = game.get_letter()
-    choices = game.get_choices()
-
-    socket.emit("next_question", {"letter" : letter, "choices" : choices})
-
 @socket.on("get_next_question")
-def get_next_question():
+def get_next_question(order, current_letter):
 
-    game.get_next_letter()
-    letter = game.get_letter()
-    choices = game.get_choices()
-
-    socket.emit("next_question", {"letter" : letter, "choices" : choices})
+    socket.emit("next_question", game.get_next_question(order, current_letter), to=request.sid)
 
 @socket.on("check_selection")
-def check_selection(selection):
+def check_selection(selection, order, current_letter):
 
-    correct = game.check_answer(selection)
+    correct = game.check_answer(selection, current_letter)
 
     if correct:
-        socket.emit("correct")
-        """
-        This and load game should just deliver the next question.
-        Does the letter exist for all clients (how does each client get it's own game state)
-        """
+        socket.emit("correct", to=request.sid)
     else:
-        socket.emit("incorrect")
+        socket.emit("incorrect", to=request.sid)
