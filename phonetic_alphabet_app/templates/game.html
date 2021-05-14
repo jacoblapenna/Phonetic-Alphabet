@@ -77,7 +77,6 @@
     }
 
     function get_next_question() {
-      console.log(order, current_letter)
       socket.emit("get_next_question", order=order, current_letter=current_letter);
     }
 
